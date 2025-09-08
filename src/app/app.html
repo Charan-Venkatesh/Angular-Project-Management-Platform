@@ -1,0 +1,24 @@
+<div class="app-container">
+  <header class="app-header">
+    <h1>📋 Angular Todo App</h1>
+    <nav>
+      <button class="nav-btn deadline-toggle" (click)="toggleDeadlines()">
+        ⏰ Deadlines
+      </button>
+    </nav>
+  </header>
+
+  <!-- Deadline Modal -->
+  <div class="deadline-overlay" *ngIf="showDeadlines()" (click)="closeDeadlines()">
+    <div class="deadline-modal" (click)="$event.stopPropagation()">
+      <button class="close-btn" (click)="closeDeadlines()">❌</button>
+      <h2>📅 Deadline Manager</h2>
+      <p>Deadline management will be available here.</p>
+      <!-- DeadlineManagerComponent will be added here once available -->
+    </div>
+  </div>
+
+  <main class="app-content">
+    <app-project-list></app-project-list>
+  </main>
+</div>

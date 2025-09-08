@@ -1,0 +1,49 @@
+<div class="task-card hover-lift card-3d" 
+     [class.dragging]="isDragging"
+     [class.completed]="task.completed"
+     draggable="true"
+     (dragstart)="onDragStart($event)"
+     (dragend)="onDragEnd()">
+  
+  <div class="task-header">
+    <div class="task-priority neon-glow" [style.color]="getPriorityColor()">
+      {{ getPriorityIcon() }}
+      <span class="priority-text">{{ task.priority }}</span>
+    </div>
+    <button class="delete-btn liquid-btn" (click)="deleteTask()" title="Delete task">×</button>
+  </div>
+
+  <h3 class="task-title text-gradient" [class.completed]="task.completed">
+    {{ task.title }}
+  </h3>
+
+  <div class="task-meta" *ngIf="task.description">
+    <p class="task-description fade-in">{{ task.description }}</p>
+  </div>
+
+  <div class="task-dates" *ngIf="task.dueDate">
+    <div class="due-date pulse">
+      📅 Due: {{ task.dueDate | date:'MMM d, y' }}
+    </div>
+  </div>
+
+  <div class="task-tags" *ngIf="task.tags && task.tags.length > 0">
+    <span class="tag morph-shape" *ngFor="let tag of task.tags">{{ tag }}</span>
+  </div>
+
+  <div class="task-footer">
+    <button class="complete-btn btn-interactive" 
+            [class.completed]="task.completed"
+            (click)="toggleComplete()">
+      {{ task.completed ? '✅ Completed' : '⏳ Mark Complete' }}
+    </button>
+    
+    <div class="task-status">
+      <span class="status-badge bounce" [class]="task.status">
+        {{ task.status }}
+      </span>
+    </div>
+  </div>
+
+  <div class="drag-handle float" title="Drag to move">⋮⋮</div>
+</div>
