@@ -1,0 +1,69 @@
+<div class="todo-app">
+  <!-- Header -->
+  <div class="header">
+    <h1>Task Manager</h1>
+  </div>
+
+  <!-- Input Section -->
+  <div class="task-input">
+    <input
+      type="text"
+      class="new-todo"
+      placeholder="Add a new task..."
+      [(ngModel)]="newTask"
+      (keyup.enter)="addTask()"
+    />
+    <button class="add-btn" (click)="addTask()">+ Add</button>
+  </div>
+
+  <!-- Task List -->
+  <ul class="task-list">
+    @for (task of filteredTasks; track task.id) {
+      <li class="task-item">
+        <div class="task-content">
+          <input
+            type="checkbox"
+            [checked]="task.completed"
+            (change)="toggleTask(task)"
+          />
+          <span class="task-title" [class.completed]="task.completed">
+            {{ task.title }}
+          </span>
+          <button class="delete-btn" (click)="deleteTask(task)">
+            Delete
+          </button>
+        </div>
+      </li>
+    }
+  </ul>
+
+  <!-- Footer -->
+  @if (tasks.length > 0) {
+    <div class="footer">
+      <span>{{ remainingCount }} tasks left</span>
+      <div class="filters">
+        <button
+          class="filter-btn"
+          [class.selected]="filter === 'all'"
+          (click)="setFilter('all')"
+        >
+          All
+        </button>
+        <button
+          class="filter-btn"
+          [class.selected]="filter === 'active'"
+          (click)="setFilter('active')"
+        >
+          Active
+        </button>
+        <button
+          class="filter-btn"
+          [class.selected]="filter === 'completed'"
+          (click)="setFilter('completed')"
+        >
+          Completed
+        </button>
+      </div>
+    </div>
+  }
+</div>

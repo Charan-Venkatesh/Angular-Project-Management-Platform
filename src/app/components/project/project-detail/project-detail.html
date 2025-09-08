@@ -1,0 +1,35 @@
+<div class="project-detail" *ngIf="project">
+  <div class="project-header">
+    <h2>📋 {{ project.name }}</h2>
+    <a routerLink="/projects" class="back-button">← Back to Projects</a>
+  </div>
+
+  <!-- Add Section -->
+  <div class="add-section">
+    <input 
+      [(ngModel)]="newSectionName" 
+      placeholder="Enter section name (e.g., To Do, In Progress, Done)..." 
+      (keydown.enter)="addSection()"
+    />
+    <button (click)="addSection()">📋 Add Section</button>
+  </div>
+
+  <!-- Kanban Board -->
+  <div class="kanban-board">
+    <app-section-column 
+      *ngFor="let section of project.sections; trackBy: trackBySection"
+      [section]="section"
+      [tasks]="tasksForSection(section.id)"
+      (taskUpdate)="onTaskUpdate($event)"
+      (taskDelete)="onTaskDelete($event)"
+      (taskMove)="onTaskMove($event)"
+      (taskAdd)="onTaskAdd($event)">
+    </app-section-column>
+  </div>
+
+  <!-- Empty Board State -->
+  <div *ngIf="project.sections.length === 0" class="empty-section" style="margin-top: 2rem;">
+    <span style="font-size: 3rem;">📋</span>
+    <p>No sections yet. Create your first section to start organizing tasks!</p>
+  </div>
+</div>

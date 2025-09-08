@@ -1,0 +1,174 @@
+/* ===== Root Variables for Theme ===== */
+:root {
+  --primary: #4f46e5;        /* Indigo */
+  --primary-hover: #4338ca;
+  --danger: #e74c3c;
+  --danger-hover: #c0392b;
+  --bg-light: #f9fafb;
+  --bg-card: #ffffffcc;      /* semi-transparent for glassy look */
+  --text-dark: #1e293b;
+  --text-muted: #64748b;
+  --border-color: #e5e7eb;
+  --shadow-sm: 0 2px 6px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.12);
+  --radius: 10px;
+  --transition: all 0.3s ease;
+}
+
+/* ===== App Container ===== */
+.todo-app {
+  max-width: 650px;
+  margin: 40px auto;
+  padding: 30px;
+  background: var(--bg-card);
+  backdrop-filter: blur(10px);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* ===== Header ===== */
+.header h1 {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 35px;
+  letter-spacing: -0.5px;
+}
+
+/* ===== Input Section ===== */
+.task-input {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.new-todo {
+  flex: 1;
+  padding: 14px 18px;
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius);
+  font-size: 16px;
+  background-color: white;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+  transition: var(--transition);
+}
+
+.new-todo:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(79,70,229,0.15);
+  outline: none;
+}
+
+/* ===== Buttons ===== */
+.add-btn {
+  padding: 14px 22px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-weight: 600;
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
+}
+
+.add-btn:hover {
+  background: var(--primary-hover);
+  box-shadow: var(--shadow-md);
+}
+
+.delete-btn {
+  margin-left: auto;
+  padding: 8px 14px;
+  background: var(--danger);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
+}
+
+.delete-btn:hover {
+  background: var(--danger-hover);
+  box-shadow: var(--shadow-md);
+}
+
+/* ===== Task List ===== */
+.task-item {
+  list-style: none;
+  margin-bottom: 12px;
+  padding: 18px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  background: var(--bg-card);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+
+.task-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.task-content {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.task-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-dark);
+  transition: var(--transition);
+}
+
+.task-title.completed {
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
+/* ===== Footer Section ===== */
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 35px;
+  padding: 18px;
+  background: var(--bg-light);
+  border-radius: var(--radius);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ===== Filters ===== */
+.filters {
+  display: flex;
+  gap: 10px;
+}
+
+.filter-btn {
+  padding: 8px 15px;
+  border: 1px solid var(--border-color);
+  background: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.filter-btn:hover {
+  background: var(--bg-light);
+  border-color: var(--primary);
+}
+
+.filter-btn.selected {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+  box-shadow: var(--shadow-sm);
+}

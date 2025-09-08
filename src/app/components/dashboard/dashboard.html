@@ -1,0 +1,187 @@
+<div class="dashboard">
+  <div class="dashboard-header">
+    <h1 class="text-gradient typewriter">📊 Project Dashboard</h1>
+    <p class="fade-in">Get insights into your productivity and project progress</p>
+  </div>
+
+  <!-- Key Metrics with Enhanced Animations -->
+  <div class="metrics-grid">
+    <div class="metric-card projects hover-lift magnetic">
+      <div class="metric-icon float">🗂️</div>
+      <div class="metric-content">
+        <h3 class="bounce">{{ totalProjects }}</h3>
+        <p>Total Projects</p>
+        <div class="metric-details">
+          <span class="active pulse">{{ activeProjects }} Active</span>
+          <span class="completed">{{ completedProjects }} Completed</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="metric-card tasks hover-lift magnetic">
+      <div class="metric-icon float">✅</div>
+      <div class="metric-content">
+        <h3 class="bounce">{{ totalTasks }}</h3>
+        <p>Total Tasks</p>
+        <div class="metric-details">
+          <span class="active pulse">{{ activeTasks }} Active</span>
+          <span class="completed">{{ completedTasks }} Done</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="metric-card completion hover-lift magnetic">
+      <div class="metric-icon float">📈</div>
+      <div class="metric-content">
+        <h3 class="bounce neon-glow">{{ completionRate | number:'1.0-1' }}%</h3>
+        <p>Completion Rate</p>
+        <div class="progress-bar">
+          <div class="progress-fill glow" [style.width.%]="completionRate"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="metric-card urgent hover-lift magnetic">
+      <div class="metric-icon float">🔥</div>
+      <div class="metric-content">
+        <h3 class="bounce">{{ urgentTasks }}</h3>
+        <p>Urgent Tasks</p>
+        <div class="metric-details">
+          <span class="overdue pulse">{{ overdueTasks }} Overdue</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="dashboard-content">
+    <!-- Project Progress -->
+    <div class="dashboard-section">
+      <h2>🎯 Project Progress</h2>
+      <div class="project-progress-list">
+        <div 
+          *ngFor="let item of projectProgress" 
+          class="project-progress-item"
+          (click)="navigateToProject(item.project.id)">
+          <div class="project-info">
+            <div class="project-color" [style.background-color]="item.project.color"></div>
+            <div class="project-details">
+              <h4>{{ item.project.name }}</h4>
+              <p>{{ item.progress | number:'1.0-0' }}% Complete</p>
+            </div>
+          </div>
+          <div class="project-progress-bar">
+            <div class="project-progress-fill" [style.width.%]="item.progress"></div>
+          </div>
+        </div>
+
+        <div *ngIf="projectProgress.length === 0" class="empty-state">
+          <p>No projects yet. <a routerLink="/projects">Create your first project!</a></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Priority Distribution -->
+    <div class="dashboard-section">
+      <h2>⚡ Task Priority Distribution</h2>
+      <div class="priority-chart">
+        <div class="priority-item urgent" *ngIf="tasksByPriority.urgent > 0">
+          <div class="priority-bar">
+            <div class="priority-fill" [style.height]="(tasksByPriority.urgent / activeTasks) * 100 + '%'"></div>
+          </div>
+          <div class="priority-label">
+            <span class="count">{{ tasksByPriority.urgent }}</span>
+            <span class="name">Urgent</span>
+          </div>
+        </div>
+
+        <div class="priority-item high" *ngIf="tasksByPriority.high > 0">
+          <div class="priority-bar">
+            <div class="priority-fill" [style.height]="(tasksByPriority.high / activeTasks) * 100 + '%'"></div>
+          </div>
+          <div class="priority-label">
+            <span class="count">{{ tasksByPriority.high }}</span>
+            <span class="name">High</span>
+          </div>
+        </div>
+
+        <div class="priority-item medium" *ngIf="tasksByPriority.medium > 0">
+          <div class="priority-bar">
+            <div class="priority-fill" [style.height]="(tasksByPriority.medium / activeTasks) * 100 + '%'"></div>
+          </div>
+          <div class="priority-label">
+            <span class="count">{{ tasksByPriority.medium }}</span>
+            <span class="name">Medium</span>
+          </div>
+        </div>
+
+        <div class="priority-item low" *ngIf="tasksByPriority.low > 0">
+          <div class="priority-bar">
+            <div class="priority-fill" [style.height]="(tasksByPriority.low / activeTasks) * 100 + '%'"></div>
+          </div>
+          <div class="priority-label">
+            <span class="count">{{ tasksByPriority.low }}</span>
+            <span class="name">Low</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="dashboard-section">
+      <h2>🕒 Recent Tasks</h2>
+      <div class="recent-tasks">
+        <div *ngFor="let task of recentTasks" class="task-item">
+          <div class="task-status">
+            {{ getStatusIcon(task.status) }}
+          </div>
+          <div class="task-content">
+            <h4>{{ task.title }}</h4>
+            <p>Updated {{ formatDate(task.updatedAt) }}</p>
+          </div>
+          <div class="task-priority" [style.color]="getPriorityColor(task.priority)">
+            {{ getPriorityIcon(task.priority) }}
+          </div>
+        </div>
+
+        <div *ngIf="recentTasks.length === 0" class="empty-state">
+          <p>No recent tasks. <a routerLink="/projects">Start creating tasks!</a></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Upcoming Deadlines -->
+    <div class="dashboard-section">
+      <h2>📅 Upcoming Deadlines</h2>
+      <div class="upcoming-tasks">
+        <div *ngFor="let task of upcomingTasks" class="deadline-item">
+          <div class="deadline-date">
+            <span class="day">{{ formatDate(task.dueDate!).split(' ')[1] }}</span>
+            <span class="month">{{ formatDate(task.dueDate!).split(' ')[0] }}</span>
+          </div>
+          <div class="deadline-content">
+            <h4>{{ task.title }}</h4>
+            <p>{{ getPriorityIcon(task.priority) }} {{ task.priority | titlecase }} Priority</p>
+          </div>
+          <div class="deadline-status" [style.background-color]="getPriorityColor(task.priority)"></div>
+        </div>
+
+        <div *ngIf="upcomingTasks.length === 0" class="empty-state">
+          <p>✨ No upcoming deadlines! You're all caught up.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="quick-actions">
+    <button class="quick-action-btn" routerLink="/projects">
+      <span class="action-icon">🗂️</span>
+      <span class="action-text">Manage Projects</span>
+    </button>
+    <button class="quick-action-btn" routerLink="/todo">
+      <span class="action-icon">✅</span>
+      <span class="action-text">Quick Todo</span>
+    </button>
+  </div>
+</div>

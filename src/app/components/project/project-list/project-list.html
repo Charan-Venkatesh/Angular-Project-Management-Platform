@@ -1,0 +1,44 @@
+<div class="project-list">
+  <h2>🎯 My Projects</h2>
+
+  <div class="add-project">
+    <input 
+      [(ngModel)]="newProjectName" 
+      placeholder="Enter project name..." 
+      (keydown.enter)="addProject()"
+    />
+    <button (click)="addProject()">✨ Create Project</button>
+  </div>
+
+  <div class="search">
+    <input 
+      [(ngModel)]="searchTerm" 
+      placeholder="🔍 Search projects..." 
+    />
+  </div>
+
+  <ul class="projects" *ngIf="filteredProjects().length > 0">
+    <li *ngFor="let project of filteredProjects()">
+      <span 
+        [class.completed]="project.completed" 
+        (click)="selectProject(project)"
+      >
+        {{ project.name }}
+      </span>
+      <div class="project-actions">
+        <button (click)="toggleComplete(project); $event.stopPropagation()">
+          {{ project.completed ? '↩️ Reopen' : '✅ Complete' }}
+        </button>
+        <button (click)="deleteProject(project); $event.stopPropagation()">
+          🗑️ Delete
+        </button>
+      </div>
+    </li>
+  </ul>
+
+  <div class="empty-state" *ngIf="filteredProjects().length === 0">
+    <span class="empty-state-icon">📋</span>
+    <p *ngIf="projects.length === 0">No projects yet. Create your first project to get started!</p>
+    <p *ngIf="projects.length > 0 && searchTerm">No projects match your search "{{ searchTerm }}"</p>
+  </div>
+</div>

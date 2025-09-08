@@ -1,0 +1,40 @@
+<div class="section-column"
+     [class.drag-over]="isDragOver"
+     (dragover)="onDragOver($event)"
+     (dragenter)="onDragEnter($event)"
+     (dragleave)="onDragLeave($event)"
+     (drop)="onDrop($event)">
+  
+  <div class="section-header" [style.background]="section.color">
+    <h3 class="section-title">{{ section.name }}</h3>
+    <div class="task-count">
+      <span class="count-badge">{{ getTaskCount() }}</span>
+      <span class="completed-count" *ngIf="getCompletedCount() > 0">
+        ✅ {{ getCompletedCount() }}
+      </span>
+    </div>
+  </div>
+
+  <div class="task-list">
+    <app-task-card 
+      *ngFor="let task of tasks; trackBy: trackByTaskId"
+      [task]="task"
+      [isDragging]="draggedTask?.id === task.id"
+      (taskUpdate)="onTaskUpdate($event)"
+      (taskDelete)="onTaskDelete($event)"
+      (dragStart)="onTaskDragStart($event)"
+      (dragEnd)="onTaskDragEnd()">
+    </app-task-card>
+
+    <div class="empty-state" *ngIf="tasks.length === 0">
+      <p>Drop tasks here or</p>
+      <button class="add-task-btn" (click)="addNewTask()">
+        ➕ Add Task
+      </button>
+    </div>
+  </div>
+
+  <button class="add-task-btn-bottom" (click)="addNewTask()" *ngIf="tasks.length > 0">
+    ➕ Add New Task
+  </button>
+</div>
