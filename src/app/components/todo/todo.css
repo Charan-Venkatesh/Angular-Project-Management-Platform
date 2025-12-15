@@ -1,16 +1,16 @@
 /* ===== Root Variables for Theme ===== */
 :root {
-  --primary: #4f46e5;        /* Indigo */
+  --primary: #4f46e5; /* Indigo */
   --primary-hover: #4338ca;
   --danger: #e74c3c;
   --danger-hover: #c0392b;
   --bg-light: #f9fafb;
-  --bg-card: #ffffffcc;      /* semi-transparent for glassy look */
+  --bg-card: #ffffffcc; /* semi-transparent for glassy look */
   --text-dark: #1e293b;
   --text-muted: #64748b;
   --border-color: #e5e7eb;
-  --shadow-sm: 0 2px 6px rgba(0,0,0,0.08);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.12);
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
   --radius: 10px;
   --transition: all 0.3s ease;
 }
@@ -24,7 +24,12 @@
   backdrop-filter: blur(10px);
   border-radius: var(--radius);
   box-shadow: var(--shadow-md);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
 }
 
 /* ===== Header ===== */
@@ -51,13 +56,13 @@
   border-radius: var(--radius);
   font-size: 16px;
   background-color: white;
-  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
   transition: var(--transition);
 }
 
 .new-todo:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 4px rgba(79,70,229,0.15);
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15);
   outline: none;
 }
 
@@ -125,6 +130,7 @@
   font-weight: 500;
   color: var(--text-dark);
   transition: var(--transition);
+  cursor: pointer;
 }
 
 .task-title.completed {

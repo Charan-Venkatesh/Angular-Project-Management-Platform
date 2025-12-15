@@ -1,0 +1,3 @@
+## 2025-12-15 - [The Hidden Power of Labels]
+**Learning:** In list-based interfaces like Todo apps, relying on proximity for label association is insufficient. Explicitly associating labels with checkboxes using `for` and `id` attributes not only improves accessibility for screen readers but also significantly enhances usability for mouse users by expanding the clickable area.
+**Action:** Always verify that form controls in lists have programmatic label associations, even if they visually appear next to their labels. Use `id` and `for` or wrap inputs in labels where possible, keeping in mind click target size.

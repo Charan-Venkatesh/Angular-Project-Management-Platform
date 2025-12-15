@@ -23,13 +23,18 @@
         <div class="task-content">
           <input
             type="checkbox"
+            [id]="'task-' + task.id"
             [checked]="task.completed"
             (change)="toggleTask(task)"
           />
-          <span class="task-title" [class.completed]="task.completed">
+          <label class="task-title" [for]="'task-' + task.id" [class.completed]="task.completed">
             {{ task.title }}
-          </span>
-          <button class="delete-btn" (click)="deleteTask(task)">
+          </label>
+          <button
+            class="delete-btn"
+            (click)="deleteTask(task)"
+            [attr.aria-label]="'Delete ' + task.title"
+          >
             Delete
           </button>
         </div>
@@ -42,11 +47,7 @@
     <div class="footer">
       <span>{{ remainingCount }} tasks left</span>
       <div class="filters">
-        <button
-          class="filter-btn"
-          [class.selected]="filter === 'all'"
-          (click)="setFilter('all')"
-        >
+        <button class="filter-btn" [class.selected]="filter === 'all'" (click)="setFilter('all')">
           All
         </button>
         <button
